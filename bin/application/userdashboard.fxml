@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="40.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Username" wrappingWidth="534.6666870117188">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Hyperlink layoutX="453.0" layoutY="18.0" text="Profile" />
+      <Hyperlink layoutX="40.0" layoutY="18.0" text="Add Post" />
+      <Hyperlink layoutX="113.0" layoutY="18.0" text="Retreive Post" />
+      <Hyperlink layoutX="519.0" layoutY="18.0" text="Logout" />
+      <Hyperlink layoutX="209.0" layoutY="18.0" text="Delete Post" />
+   </children>
+</AnchorPane>

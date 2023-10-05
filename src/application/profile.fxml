@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.signupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="185.0" layoutY="108.0" prefHeight="17.0" prefWidth="213.0" text="Last Name" />
       <Label layoutX="185.0" layoutY="190.0" prefHeight="17.0" prefWidth="213.0" text="Username" />
@@ -15,7 +14,7 @@
       <PasswordField fx:id="password" layoutX="185.0" layoutY="294.0" prefHeight="25.0" prefWidth="213.0" />
       <TextField fx:id="username" layoutX="185.0" layoutY="223.0" prefHeight="25.0" prefWidth="213.0" />
       <TextField fx:id="lName" layoutX="185.0" layoutY="147.0" prefHeight="25.0" prefWidth="213.0" />
-      <Button layoutX="265.0" layoutY="361.0" mnemonicParsing="false" onAction="#userSignup" text="Signup" />
+      <Button layoutX="265.0" layoutY="361.0" mnemonicParsing="false" onAction="#updateProfile" text="Update" />
       <Label layoutX="185.0" layoutY="26.0" prefHeight="17.0" prefWidth="213.0" text="First Name" />
       <TextField fx:id="fName" layoutX="185.0" layoutY="52.0" prefHeight="25.0" prefWidth="213.0" />
    </children>
