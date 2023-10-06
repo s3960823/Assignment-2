@@ -3,12 +3,14 @@ package application;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 
@@ -25,6 +27,8 @@ public class signupController {
 	boolean isVip = false;
 	
 	UserDataLoader userRecords = new UserDataLoader();
+	
+	Stage currentStage = null;
 
 	// Event Listener on Button.onAction
 	@FXML
@@ -34,6 +38,10 @@ public class signupController {
         String lastName = lName.getText();
         String userName = username.getText();
         String pass = password.getText();
+        
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        currentStage = stage;
 
         // Validate input
         if (firstName.isEmpty() || lastName.isEmpty() || userName.isEmpty() || pass.isEmpty()) {
@@ -59,7 +67,7 @@ public class signupController {
 
         // Clear the form after registration
         clearForm();
-        RedirectPage redirect = new RedirectPage();
+        RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("login.fxml", "Login Page");
     }
 

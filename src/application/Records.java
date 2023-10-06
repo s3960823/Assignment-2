@@ -98,6 +98,7 @@ public class Records {
         Post post = new Post(CustomScanner.parseInt(Integer.toString(ID), 0), CustomScanner.parseStr(content),
                         CustomScanner.parseStr(author), CustomScanner.parseInt(Integer.toString(likes), 0),
                         CustomScanner.parseInt(Integer.toString(shares), 0), CustomScanner.parseStr(dateTime));
+        System.out.println(post.getID());
         // check that the ID doen't exist in the current collection of posts
         if (this.posts.get(post.getID()) != null) {
             throw new InvalidIDException(String.format("ID = %d is already assigned to a Post!", ID), "Post", ID);

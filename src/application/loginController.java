@@ -3,8 +3,9 @@ package application;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.TextField;
-
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 
@@ -13,13 +14,17 @@ public class loginController {
 	private TextField username;
 	@FXML
 	private PasswordField password;
+	
+	Stage currentStage = null;
 
 	// Event Listener on Button.onAction
 	@FXML
-    private void userLogin() {
+    private void userLogin(ActionEvent event) {
         String userName = username.getText();
         String pass = password.getText();
-
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        currentStage = stage;
         // Validate the user (you can replace this with your actual validation logic)
         if (isValidUser(userName, pass)) {
             // Perform login action (replace this with your actual login logic)
@@ -30,9 +35,9 @@ public class loginController {
     }
 
     private boolean isValidUser(String username, String password) {
-    	Boolean detailsVerified = false;
+    	boolean detailsVerified = false;
         // your user validation logic here
-    	if(!username.isEmpty() && !password.isEmpty()) {
+    	if(username.isEmpty() && password.isEmpty()) {
     		return detailsVerified;
     	}
     	detailsVerified = UserDataLoader.validateUser(username, password);
@@ -40,11 +45,9 @@ public class loginController {
     }
 
     private void login(String username) {
-        // Implement your login logic here
-        // For simplicity, this example displays a welcome message
         showAlert("Welcome", "Login successful! Welcome, " + username + "!");
-        RedirectPage redirect = new RedirectPage();
-        redirect.redirectToPage("userdashboard.fxml", "User Dashboard");
+        RedirectPage redirect = new RedirectPage(currentStage);
+        redirect.redirectToPage("dashboard.fxml", "User Dashboard");
     }
 
     private void showAlert(String title, String content) {

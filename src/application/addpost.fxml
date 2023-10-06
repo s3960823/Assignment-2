@@ -6,21 +6,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addpostController">
    <children>
-      <Label layoutX="39.0" layoutY="29.0" text="ID" />
+      <Label layoutX="39.0" layoutY="29.0" prefHeight="17.0" prefWidth="435.0" text="ID" />
       <Label layoutX="39.0" layoutY="103.0" text="Content" />
-      <Label layoutX="39.0" layoutY="177.0" text="Author" />
-      <Label layoutX="39.0" layoutY="253.0" text="Likes" />
-      <Label layoutX="39.0" layoutY="333.0" text="Shares" />
-      <Label layoutX="39.0" layoutY="411.0" text="Date-Time" />
-      <TextField fx:id="id" layoutX="39.0" layoutY="54.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextArea fx:id="content" layoutX="39.0" layoutY="127.0" prefHeight="42.0" prefWidth="300.0" />
-      <TextField fx:id="author" layoutX="39.0" layoutY="202.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="likes" layoutX="39.0" layoutY="278.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="shares" layoutX="39.0" layoutY="358.0" prefHeight="25.0" prefWidth="300.0" />
-      <TextField fx:id="datetime" layoutX="39.0" layoutY="436.0" prefHeight="25.0" prefWidth="300.0" />
-      <Button layoutX="41.0" layoutY="488.0" mnemonicParsing="false" onAction="#addPost" text="Add Post" />
+      <Label layoutX="44.0" layoutY="196.0" text="Likes" />
+      <Label layoutX="42.0" layoutY="271.0" text="Shares" />
+      <Label layoutX="42.0" layoutY="355.0" text="Date-Time" />
+      <TextField fx:id="id" layoutX="39.0" layoutY="54.0" prefHeight="25.0" prefWidth="435.0" />
+      <TextArea fx:id="content" layoutX="39.0" layoutY="127.0" prefHeight="42.0" prefWidth="435.0" />
+      <TextField fx:id="likes" layoutX="39.0" layoutY="228.0" prefHeight="25.0" prefWidth="435.0" />
+      <TextField fx:id="shares" layoutX="39.0" layoutY="301.0" prefHeight="25.0" prefWidth="435.0" />
+      <TextField fx:id="datetime" layoutX="39.0" layoutY="383.0" prefHeight="25.0" prefWidth="435.0" />
+      <Button layoutX="45.0" layoutY="439.0" mnemonicParsing="false" onAction="#addPost" text="Add Post" />
    </children>
 </AnchorPane>
