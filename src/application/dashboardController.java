@@ -15,7 +15,7 @@ public class dashboardController {
 	
 	
 	public void initialize() {
-		String username = UserPreferences.getSavedUsername();
+		String username = UserPreferences.getSavedfName()+" "+UserPreferences.getSavedlName();
 		welcomeText.setText("Welcome "+username);
 	}
 	

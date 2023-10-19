@@ -1,8 +1,14 @@
 package application;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -131,7 +137,7 @@ public class Records {
      */
     public Post getPost(int ID) throws InvalidIDException {
         // retrieve post from collection
-        Post post = this.posts.get(ID);
+        Post post = posts.get(ID);
         // return post
         if (post == null) {
             throw new InvalidIDException(String.format("Post with ID = %d is not found!", ID), "Post", ID);
@@ -194,6 +200,35 @@ public class Records {
             fields[i] = fields[i].strip();
         }
         return fields;
+    }
+    
+    /**
+     * Update the CSV file.
+     *
+     * @param filename name of the file to update
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
+    public void updateCSV(String filename) throws IOException {
+        System.out.printf("Updating '%s' file ...\n", filename);
+        
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filename), java.nio.file.StandardOpenOption.APPEND)) {
+        	// If the file is empty, write headers
+            if (Files.size(Paths.get(filename)) == 0) {
+                writer.write("ID,Content,Author,Likes,Shares,DateTime\n");
+            }
+
+            // Write each post to the file
+            for (Map.Entry<Integer, Post> entry : this.posts.entrySet()) {
+                Post post = entry.getValue();
+                String line = String.format("%d,%s,%s,%d,%d,%s\n", post.getID(), post.getContent(), post.getAuthor(),
+                        post.getLikes(), post.getShares(), post.getDateTime());
+                writer.write(line);
+            }
+
+            System.out.printf("%d posts have been updated to '%s'\n", posts.size(), filename);
+        } catch(IOException e) {
+        	e.printStackTrace();
+        }
     }
 
 }

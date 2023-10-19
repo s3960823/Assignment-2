@@ -33,6 +33,17 @@ public class loginController {
             showAlert("Invalid Credentials", "Please enter valid username and password.");
         }
     }
+	
+	@FXML
+	private void signUpClicked(ActionEvent event) {
+		Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        currentStage = stage;
+        RedirectPage redirect = new RedirectPage(currentStage);
+        redirect.redirectToPage("signup.fxml", "Signup");
+        
+	}
+	
 
     private boolean isValidUser(String username, String password) {
     	boolean detailsVerified = false;

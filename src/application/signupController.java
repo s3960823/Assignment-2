@@ -49,7 +49,7 @@ public class signupController {
             return;
         }
 
-        // Check if the username is unique (you may want to implement a more sophisticated check)
+        // Check if the username is unique
         if (isUsernameAlreadyExists(userName)) {
             showAlert("Error", "Username already exists. Choose a different one.");
             return;
@@ -57,19 +57,28 @@ public class signupController {
 
         // Register the user
         saveUserDetails(firstName, lastName, userName,pass);
-
-        // Redirect to login screen (you need to implement the redirection logic)
-        // For simplicity, we just show an alert here
+        try {
+			UserDataLoader.loadUserData();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         showAlert("Success", "User registered successfully. Redirect to login screen.");
-
-        // You can add code here to open the login.fxml or navigate to the login screen
-        // ...
 
         // Clear the form after registration
         clearForm();
         RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("login.fxml", "Login Page");
     }
+	
+	@FXML
+	public void loginClicked(ActionEvent event) {
+		Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        currentStage = stage;
+        RedirectPage redirect = new RedirectPage(currentStage);
+        redirect.redirectToPage("login.fxml", "Login");
+	}
 
     private boolean isUsernameAlreadyExists(String username) {
         //code to check username
@@ -81,7 +90,6 @@ public class signupController {
         // Save user details to a CSV file
         try (PrintWriter writer = new PrintWriter(new FileWriter("user_data.csv", true))) {
             writer.println(firstName + "," + lastName + "," + username + "," + pass+","+ isVip);
-            UserDataLoader.loadUserData();
         } catch (IOException e) {
             e.printStackTrace();
         }

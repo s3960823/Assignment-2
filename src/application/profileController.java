@@ -62,7 +62,7 @@ public class profileController {
 	    Stage stage = (Stage) source.getScene().getWindow();
 	    currentStage = stage;
 	    RedirectPage redirect = new RedirectPage(currentStage);
-        redirect.redirectToPage("profile.fxml", "User Profile");
+        redirect.redirectToPage("dashboard.fxml", "User Dashboard");
 	}
 	
     private void showAlert(String title, String content) {
