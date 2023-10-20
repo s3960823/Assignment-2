@@ -91,6 +91,10 @@ public class UserDataLoader {
             return false;
         }
     }
+    
+    public static Map<String, User> getUserMap() {
+    	return userMap;
+    }
 
     // Update the CSV file with user data
     public static void updateCsvFile() throws IOException {
@@ -100,9 +104,17 @@ public class UserDataLoader {
             }
         }
     }
+    
+    public static void updateCsvFileTest(String fileName) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            for (User user : userMap.values()) {
+                writer.println(user.toCsvString());
+            }
+        }
+    }
 
     // Nested User class to represent user data
-    static class User {
+    public static class User {
         private String firstName;
         private String lastName;
         private String username;
