@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="19.0" layoutY="69.0" prefHeight="17.0" prefWidth="29.0" text="ID : " />
+      <Text fx:id="ID" layoutX="86.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="490.0" />
+      <Text layoutX="86.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="author" layoutX="86.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="490.0" />
+      <Text fx:id="likes" layoutX="86.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Likes" wrappingWidth="490.0" />
+      <Text fx:id="shares" layoutX="86.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shares" wrappingWidth="490.0" />
+      <TextArea fx:id="contenthyper" layoutX="86.0" layoutY="114.0" prefHeight="63.0" prefWidth="490.0" />
+      <Label layoutX="19.0" layoutY="114.0" text="Content" />
+      <Label layoutX="23.0" layoutY="203.0" text="Author" />
+      <Label layoutX="21.0" layoutY="239.0" text="Likes" />
+      <Label layoutX="23.0" layoutY="270.0" text="Shares" />
+      <Label layoutX="20.0" layoutY="302.0" text="Date Time" />
+      <Text fx:id="datetime" layoutX="86.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Time" wrappingWidth="490.0" />
+      <Hyperlink layoutX="19.0" layoutY="22.0" onAction="#backClicked" text="Go Back" />
+      <Line endX="451.33331298828125" layoutX="122.0" layoutY="337.0" startX="-100.0" />
+      <Line endX="454.66668701171875" endY="-3.814697265625E-6" layoutX="120.0" layoutY="58.0" startX="-100.0" />
+   </children>
+</AnchorPane>
