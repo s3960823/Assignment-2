@@ -18,64 +18,55 @@ import model.RedirectPage;
 import model.Post;
 
 public class RetreivePostLikesController implements Initializable {
-	@FXML
-	private TextField numberOfPosts;
-	@FXML
-	private Button postRetreiveLikes;
-	@FXML
-	private TextArea postDetail;
-	
-	Stage currentStage = null;
-	
-	@Override
+    @FXML
+    private TextField numberOfPosts;
+    @FXML
+    private Button postRetreiveLikes;
+    @FXML
+    private TextArea postDetail;
+
+    Stage currentStage = null;
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set the visibility of the button to false when the FXML is loaded
-		postDetail.setVisible(false);
+        postDetail.setVisible(false);
     }
 
-	// Event Listener on Button[#postRetreiveLikes].onAction
-	@FXML
-	public void postRetreiveLikes(ActionEvent event) {
-		System.out.println("Called");
-		String ID = numberOfPosts.getText();
-		
-		int intID = Integer.parseInt(ID);
-		
-		try {
-		    Records records = new Records();
-		    records.readPosts("posts.csv");
-		    // Retrieve a single post based on its ID
-		    ArrayList<Post> likePosts = records.getPosts("likes",intID);
-		    String formattedContent = String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", "ID", "date/time", "likes", "author", "content");
-	        for (Post post : likePosts) {
-	        	formattedContent += String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", "-".repeat(7), "-".repeat(16), "-".repeat(7), "-".repeat(7), "-".repeat(11));
+    // Event Listener for the "Retrieve Posts by Likes" button
+    @FXML
+    public void postRetreiveLikes(ActionEvent event) {
+        String ID = numberOfPosts.getText();
 
-	        	formattedContent += String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", post.getID(), post.getDateTime(), post.getLikes(), post.getAuthor(), post.getContent());
-	        }
-	        postDetail.setVisible(true);
-	        postDetail.setFont(javafx.scene.text.Font.font("Monospaced", 12));
-	        postDetail.setText(formattedContent);
-		} catch (Exception e) {
-		    // Handle other exceptions if needed
-		    e.printStackTrace();
-		}
+        int intID = Integer.parseInt(ID);
 
-	}
-	// Event Listener on Hyperlink.onAction
-	@FXML
-	public void goBackClicked(ActionEvent event) {
-		Node source = (Node) event.getSource();
-	    Stage stage = (Stage) source.getScene().getWindow();
-	    currentStage = stage;
-	    RedirectPage redirect = new RedirectPage(currentStage);
+        try {
+            Records records = new Records();
+            records.readPosts("posts.csv");
+            // Retrieve posts based on the number of likes
+            ArrayList<Post> likePosts = records.getPosts("likes", intID);
+            String formattedContent = String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", "ID", "date/time", "likes", "author", "content");
+            for (Post post : likePosts) {
+                formattedContent += String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", "-".repeat(7), "-".repeat(16), "-".repeat(7), "-".repeat(7), "-".repeat(11));
+
+                formattedContent += String.format("%-7s | %-16s | %-7s | %-7s | %-11s%n", post.getID(), post.getDateTime(), post.getLikes(), post.getAuthor(), post.getContent());
+            }
+            postDetail.setVisible(true);
+            postDetail.setFont(javafx.scene.text.Font.font("Monospaced", 12));
+            postDetail.setText(formattedContent);
+        } catch (Exception e) {
+            // Handle other exceptions
+            e.printStackTrace();
+        }
+    }
+
+    // Event Listener for the "Back" hyperlink
+    @FXML
+    public void goBackClicked(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        currentStage = stage;
+        RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("/view/dashboard.fxml", "User Dashboard");
-	}
-	
-//	private void showAlert(String title, String content) {
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle(title);
-//        alert.setContentText(content);
-//        alert.showAndWait();
-//    }
-
+    }
 }

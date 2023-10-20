@@ -1,53 +1,49 @@
 package controller;
 
 import javafx.fxml.FXML;
-
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
-
 import model.RedirectPage;
 import model.UserDataLoader;
 
 public class SignupController {
-	@FXML
-	private PasswordField password;
-	@FXML
-	private TextField username;
-	@FXML
-	private TextField lName;
-	@FXML
-	private TextField fName;
-	
-	boolean isVip = false;
-	
-	UserDataLoader userRecords = new UserDataLoader();
-	
-	Stage currentStage = null;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField lName;
+    @FXML
+    private TextField fName;
 
-	// Event Listener on Button.onAction
-	@FXML
-	public void userSignup(ActionEvent event) {
-		// Get user input
+    boolean isVip = false;
+
+    UserDataLoader userRecords = new UserDataLoader();
+
+    Stage currentStage = null;
+
+    // Event Listener for the "Sign Up" button
+    @FXML
+    public void userSignup(ActionEvent event) {
+        // Get user input
         String firstName = fName.getText();
         String lastName = lName.getText();
         String userName = username.getText();
         String pass = password.getText();
-        
+
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         currentStage = stage;
-        
+
         Pattern pattern = Pattern.compile("^[A-Z0-9]+$");
 
         // Create a Matcher object
@@ -58,14 +54,8 @@ public class SignupController {
             showAlert("Error", "All fields are required.");
             return;
         }
-        System.out.println(userName.length()>6 ||userName.length()<6);
-        System.out.println(!matcher.matches());
-        if(userName.length()>6 ||userName.length()<6) {
-        	showAlert("Error", "Enter a valid username");
-            return;
-        }
-        if(!matcher.matches()) {
-        	showAlert("Error", "Enter a valid username");
+        if (userName.length() != 6 || !matcher.matches()) {
+            showAlert("Error", "Enter a valid username (6 characters, uppercase letters and numbers only).");
             return;
         }
 
@@ -76,40 +66,39 @@ public class SignupController {
         }
 
         // Register the user
-        saveUserDetails(firstName, lastName, userName,pass);
+        saveUserDetails(firstName, lastName, userName, pass);
         try {
-			UserDataLoader.loadUserData();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        showAlert("Success", "User registered successfully. Redirect to login screen.");
+            UserDataLoader.loadUserData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        showAlert("Success", "User registered successfully. Redirect to the login screen.");
 
         // Clear the form after registration
         clearForm();
         RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("/view/login.fxml", "Login Page");
     }
-	
-	@FXML
-	public void loginClicked(ActionEvent event) {
-		Node source = (Node) event.getSource();
+
+    @FXML
+    public void loginClicked(ActionEvent event) {
+        Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         currentStage = stage;
         RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("/view/login.fxml", "Login");
-	}
+    }
 
     private boolean isUsernameAlreadyExists(String username) {
-        //code to check username
-    	boolean exists = UserDataLoader.isUsernameExists(username);
+        // Code to check if the username already exists
+        boolean exists = UserDataLoader.isUsernameExists(username);
         return exists;
     }
 
     private void saveUserDetails(String firstName, String lastName, String username, String pass) {
         // Save user details to a CSV file
         try (PrintWriter writer = new PrintWriter(new FileWriter("user_data.csv", true))) {
-            writer.println(firstName + "," + lastName + "," + username + "," + pass+","+ isVip);
+            writer.println(firstName + "," + lastName + "," + username + "," + pass + "," + isVip);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,5 +117,4 @@ public class SignupController {
         username.clear();
         password.clear();
     }
-
 }

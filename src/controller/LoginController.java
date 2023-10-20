@@ -10,50 +10,49 @@ import javafx.scene.control.PasswordField;
 import model.RedirectPage;
 import model.UserDataLoader;
 
-
 public class LoginController {
-	@FXML
-	private TextField username;
-	@FXML
-	private PasswordField password;
-	
-	Stage currentStage = null;
+    @FXML
+    private TextField username;
+    @FXML
+    private PasswordField password;
+    
+    Stage currentStage = null;
 
-	// Event Listener on Button.onAction
-	@FXML
+    // Event Listener for the "Login" button
+    @FXML
     private void userLogin(ActionEvent event) {
         String userName = username.getText();
         String pass = password.getText();
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         currentStage = stage;
-        // Validate the user (you can replace this with your actual validation logic)
+
+        // Validate the user's credentials
         if (isValidUser(userName, pass)) {
-            // Perform login action (replace this with your actual login logic)
+            // Perform login action
             login(userName);
         } else {
             showAlert("Invalid Credentials", "Please enter valid username and password.");
         }
     }
-	
-	@FXML
-	private void signUpClicked(ActionEvent event) {
-		Node source = (Node) event.getSource();
+
+    // Event Listener for the "Sign Up" hyperlink
+    @FXML
+    private void signUpClicked(ActionEvent event) {
+        Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         currentStage = stage;
         RedirectPage redirect = new RedirectPage(currentStage);
         redirect.redirectToPage("/view/signup.fxml", "Signup");
-        
-	}
-	
+    }
 
     private boolean isValidUser(String username, String password) {
-    	boolean detailsVerified = false;
-        // your user validation logic here
-    	if(username.isEmpty() && password.isEmpty()) {
-    		return detailsVerified;
-    	}
-    	detailsVerified = UserDataLoader.validateUser(username, password);
+        // Verify user credentials
+        boolean detailsVerified = false;
+        if (username.isEmpty() && password.isEmpty()) {
+            return detailsVerified;
+        }
+        detailsVerified = UserDataLoader.validateUser(username, password);
         return detailsVerified;
     }
 
@@ -64,6 +63,7 @@ public class LoginController {
     }
 
     private void showAlert(String title, String content) {
+        // Display an alert with the specified title and content
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(content);

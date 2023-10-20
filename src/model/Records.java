@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -240,5 +241,21 @@ public class Records {
         	e.printStackTrace();
         }
     }
+    
+    public HashMap<Integer, Post> getAllPosts(){
+    	return this.posts;
+    }
+    
+    public static int[] extractShareCounts(HashMap<Integer, Post> postsMap) {
+        List<Integer> shareCounts = new ArrayList<>();
+
+        for (Post post : postsMap.values()) {
+            int shareCount = post.getShares();
+            shareCounts.add(shareCount);
+        }
+        return shareCounts.stream().mapToInt(Integer::intValue).toArray();
+    }
+    
+
 
 }

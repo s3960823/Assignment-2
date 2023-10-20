@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,5 +20,12 @@
       <Hyperlink layoutX="519.0" layoutY="18.0" onAction="#logoutClicked" text="Logout" />
       <Hyperlink layoutX="209.0" layoutY="18.0" onAction="#deletePostClicked" text="Delete Post" />
       <Hyperlink layoutX="294.0" layoutY="19.0" onAction="#retreivePostNClicked" text="Retreive N Posts" />
+      <Hyperlink fx:id="vipButton" layoutX="424.0" layoutY="181.0" onAction="#becomeVIP" text="Click Here" />
+      <Text fx:id="vipText" layoutX="40.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to subscribe to the application for a monthly fee of $0?" />
+      <Pane fx:id="pane" layoutX="40.0" layoutY="236.0" prefHeight="307.0" prefWidth="535.0">
+         <children>
+            <PieChart fx:id="pieChart" layoutX="138.0" layoutY="22.0" prefHeight="263.0" prefWidth="263.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

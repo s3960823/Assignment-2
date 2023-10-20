@@ -24,7 +24,7 @@ public class DeletePostController {
         records = new Records(); // Initialize the Records instance in the constructor
     }
 
-	// Event Listener on Button.onAction
+	// Event Listener for the "Delete Post" button
 	@FXML
 	public void postDelete(ActionEvent event) {
 		String ID = postID.getText();
@@ -37,17 +37,17 @@ public class DeletePostController {
 		    // Delete a single post based on its ID
 		    records.deletePost(intID);
 		    records.updateCSV("posts.csv");
-		    showAlert("Success","Post Deleted Successfully");
+		    showAlert("Success", "Post Deleted Successfully");
 		} catch (InvalidIDException e) {
 		    // Handle the case where the specified post ID doesn't exist
-			showAlert("Error",e.getMessage());
+			showAlert("Error", e.getMessage());
 		} catch (Exception e) {
-		    // Handle other exceptions if needed
+		    // Handle other exceptions
 		    e.printStackTrace();
 		}
 
 	}
-	// Event Listener on Hyperlink.onAction
+	// Event Listener for the "Go Back" hyperlink
 	@FXML
 	public void goBackClicked(ActionEvent event) {
 		Node source = (Node) event.getSource();
@@ -58,6 +58,7 @@ public class DeletePostController {
 	}
 	
 	private void showAlert(String title, String content) {
+        // Display an alert with the specified title and content
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(content);

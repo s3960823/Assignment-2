@@ -3,6 +3,8 @@ package model;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserDataLoader {
 
@@ -17,6 +19,7 @@ public class UserDataLoader {
         }
     }
 
+    // Load user data from a CSV file into the userMap
     public static void loadUserData() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE_PATH))) {
             String line;
@@ -29,44 +32,68 @@ public class UserDataLoader {
                     boolean isVip = Boolean.parseBoolean(parts[4]);
                     String password = parts[3];
 
-                    User user = new User(firstName, lastName, username, password,isVip);
+                    User user = new User(firstName, lastName, username, password, isVip);
                     userMap.put(username, user);
                 }
             }
         }
     }
 
+    // Validate user credentials (username and password)
     public static boolean validateUser(String username, String password) {
         if (userMap.containsKey(username)) {
             User user = userMap.get(username);
-            UserPreferences.saveLoginInfo(user.getFirstName(),user.getLastName(),user.getUsername(),user.getPassword(), user.getIsVip());
+            UserPreferences.saveLoginInfo(user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getIsVip());
             return user.getPassword().equals(password);
         }
         return false;
     }
 
+    // Check if a username already exists
     public static boolean isUsernameExists(String username) {
         return userMap.containsKey(username);
     }
 
-    public static void updateUserDetails(String username, String newFirstName, String newLastName,
-                                          String newUserName, String newPassword, boolean newIsVip) {
+    // Update user details (first name, last name, username, password, and VIP status)
+    public static boolean updateUserDetails(String username, String newFirstName, String newLastName,
+            String newUserName, String newPassword, boolean newIsVip) {
+    	Pattern pattern = Pattern.compile("^[A-Z0-9]+$");
+
+        // Create a Matcher object
+        Matcher matcher = pattern.matcher(newUserName);
+
         if (userMap.containsKey(username)) {
-            User updatedUser = new User(newFirstName, newLastName, newUserName, newPassword,newIsVip);
+        	// Validate input
+            if (newFirstName.isEmpty() || newLastName.isEmpty() || newUserName.isEmpty() || newPassword.isEmpty()) {
+                return false;
+            }
+            if (newUserName.length() != 6 || !matcher.matches()) {
+                return false;
+            }
+            if(!username.equals(newUserName)) {
+                // Check if the username is unique
+                if (isUsernameExists(newUserName)) {
+                    return false;
+                }	
+            }
+            User updatedUser = new User(newFirstName, newLastName, newUserName, newPassword, newIsVip);
             userMap.put(username, updatedUser);
             try {
-				UserDataLoader.updateCsvFile();
-				userMap.clear();
-				UserDataLoader.loadUserData();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                UserDataLoader.updateCsvFile();
+                userMap.clear();
+                UserDataLoader.loadUserData();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
+    // Update the CSV file with user data
     public static void updateCsvFile() throws IOException {
-    	System.out.println("Size of userMap: " + userMap.size());
         try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
             for (User user : userMap.values()) {
                 writer.println(user.toCsvString());
@@ -74,14 +101,7 @@ public class UserDataLoader {
         }
     }
 
-//    private static void printUserData() {
-//        System.out.println("User Data:");
-//        for (User user : userMap.values()) {
-//            System.out.println(user);
-//        }
-//        System.out.println("--------------");
-//    }
-
+    // Nested User class to represent user data
     static class User {
         private String firstName;
         private String lastName;
@@ -89,7 +109,7 @@ public class UserDataLoader {
         private boolean isVip;
         private String password;
 
-        public User(String firstName, String lastName, String username, String password,boolean isVip) {
+        public User(String firstName, String lastName, String username, String password, boolean isVip) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.username = username;
@@ -100,26 +120,23 @@ public class UserDataLoader {
         public String getPassword() {
             return password;
         }
-        
+
         public String getUsername() {
             return username;
         }
-        
+
         public boolean getIsVip() {
             return isVip;
         }
-        
+
         public String getFirstName() {
             return firstName;
         }
-        
+
         public String getLastName() {
             return lastName;
         }
 
-
-        
-        
         @Override
         public String toString() {
             return "User{" +
